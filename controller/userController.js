@@ -44,7 +44,7 @@ export const LoginUser = async (req, res) => {
                 message: "Email And Password Incurrect",
             })
         }
-        createCookie(user, res, "Login Successfully")
+        createCookie(user, res, "Welcome Buddy.. 😉");
     } catch (error) {
         console.log(error);
     }
