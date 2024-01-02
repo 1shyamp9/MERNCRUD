@@ -27,10 +27,10 @@ export const LoginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         let user = await User.findOne({ email });
-        if (user) {
+        if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "Email And Password Incurrect",
+                message: "Email And Password Incurrect!",
             })
         }
         const ComparePass = await bcrypt.compare(password, user.password);
