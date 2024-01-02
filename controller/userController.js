@@ -63,7 +63,7 @@ export const userProfile = async (req, res,next) => {
 
 export const logoutUser = async (req, res,next) => {
     try {
-        res.status(200).cookie("Token", "", {
+        res.status(200).cookie("Token",null, {
             maxAge: new Date(Date.now()),
             httpOnly: false,
             sameSite: process.env.NODE_ENV === "Development" ? "lax" : "none",
