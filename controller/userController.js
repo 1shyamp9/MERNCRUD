@@ -5,33 +5,29 @@ import { createCookie } from "../utils/cookie.js";
 // Create user Account Function =>
 
 export const CreateUser = async (req, res) => {
-    try {
-        const { name, email, password } = req.body;
-        let user = await User.findOne({ email });
-        if (user) {
-            return res.status(404).json({
-                success: false,
-                message: "Email Already Exists",
-            })
-        }
-        const hashPass = await bcrypt.hash(password, 10);
-        user = await User.create({ name, email, password: hashPass })
-        res.status(201).json({
-            success: true,
-            message: "Account Created Successfully",
+    const { name, email, password } = req.body;
+    let user = await User.findOne({ email });
+    if (user) {
+        return res.status(404).json({
+            success: false,
+            message: "Email Already Exists",
         })
-    } catch (error) {
-        console.log(error);
     }
+    const hashPass = await bcrypt.hash(password, 10);
+    user = await User.create({ name, email, password: hashPass })
+    res.status(201).json({
+        success: true,
+        message: "Account Created Successfully",
+    })
 }
 
-// Create user Account Function =>
+// Login user Account Function =>
 
 export const LoginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
         let user = await User.findOne({ email });
-        if (!user) {
+        if (user) {
             return res.status(404).json({
                 success: false,
                 message: "Email And Password Incurrect",
@@ -50,9 +46,9 @@ export const LoginUser = async (req, res) => {
     }
 }
 
-// Create user Account Function =>
+// User Profile Function =>
 
-export const userProfile = async (req, res) => {
+export const userProfile = async (req, res,next) => {
     try {
         res.status(200).json({
             success: true,
@@ -63,9 +59,9 @@ export const userProfile = async (req, res) => {
     }
 }
 
-// Create user Account Function =>
+// Logout user Account Function =>
 
-export const logoutUser = async (req, res) => {
+export const logoutUser = async (req, res,next) => {
     try {
         res.status(200).cookie("Token", "", {
             maxAge: new Date(Date.now()),

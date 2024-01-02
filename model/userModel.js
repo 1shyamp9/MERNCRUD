@@ -3,15 +3,15 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        require: true,
+        require: [true , 'Please Enter Name'],
     },
     email: {
         type: String,
-        require: true,
+        require: [true , 'Please Enter Email ID'],
     },
     password: {
         type: String,
-        require: true,
+        require: [true , 'Please Enter Password'],
     },
     createdAt: {
         type: Date,
