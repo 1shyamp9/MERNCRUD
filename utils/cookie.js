@@ -10,7 +10,7 @@ export const createCookie = async (user, res, message) => {
             secure: process.env.NODE_ENV === "Development" ? false : true,
         }).json({
             success: true,
-            message
+            message,user
         })
     } catch (error) {
         console.log(error);
